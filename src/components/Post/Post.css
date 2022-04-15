@@ -1,0 +1,39 @@
+.card-container {
+    min-width: 640px;
+    max-height: 712px;
+    max-width: 640px;
+    margin-bottom: 20px !important;
+}
+
+.card-row {
+    flex-wrap: nowrap !important;
+}
+
+.ant-card-body {
+    padding: 5px !important;
+}
+
+.score-column {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.media-player-column {
+    padding-left: 10px !important;
+    width: 100%;
+}
+
+.title {
+    text-align: left;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.media-player-container {
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+}
