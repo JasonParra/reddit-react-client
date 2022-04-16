@@ -2,7 +2,7 @@
     width: 640px;
 }
 
-.container {
+.post-list-container {
     width: 100%;
     display: flex;
     justify-content: center;
