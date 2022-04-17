@@ -12,7 +12,7 @@ import { isLooged } from '../../api/utils'
 
 import './Header.css'
 
-const Header = (props) => {
+const Header = () => {
     const { Text } = Typography;
     const [reRender, setReRender] = useState(false);
     const user = getStore('user');

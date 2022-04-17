@@ -1,0 +1,9 @@
+.post-list {
+    width: 640px;
+}
+
+.post-list-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

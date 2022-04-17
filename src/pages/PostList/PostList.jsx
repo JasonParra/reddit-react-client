@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { Col } from 'antd';
 import { mapPostChildrenToPost } from '../../mappers/Post.mappers';
 import { getAllPostBySubreddit } from '../../api/actions/post';
@@ -15,6 +15,7 @@ const PostList = () => {
     const { subreddit = "all" } = useParams();
     const [searchParams] = useSearchParams();
     const [data, setData] = useState([]);
+    const navigate = useNavigate()
 
     useEffect(() => {
         getAllPostBySubreddit(subreddit).then(({ data }) => setData(data.data.children));
@@ -47,8 +48,12 @@ const PostList = () => {
         }
     }, [])
 
+    const handlePostClick = (permalink) => {
+        navigate(permalink);
+    }
+
     const mapPostResponseToPost = ({ data }, key) => {
-        return <Post key={key} {...mapPostChildrenToPost(data)} />;
+        return <Post key={key} {...mapPostChildrenToPost({ ...data, handlePostClick })} />;
     }
 
     return (

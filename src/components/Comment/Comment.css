@@ -1,0 +1,56 @@
+.bottom-button {
+    font-size: 12px !important;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.bottom-button-icon {
+    font-size: 16px !important;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.score {
+    font-size: 12px !important;
+    margin-right: 10px;
+}
+
+.author {
+    display: flex;
+    margin-right: 10px;
+}
+
+.body {
+    display: flex;
+}
+
+.action-container {
+    display: flex;
+    align-items: center !important;
+}
+
+.date {
+    margin-left: 120px !important;
+}
+
+.container {
+    cursor: default;
+}
+
+.up {
+    color: rgb(255, 69, 0) !important;
+}
+
+.down {
+    color: #7193FF !important;
+}
+
+.comment-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.cancel {
+    margin-right: 10px;
+}

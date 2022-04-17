@@ -1,0 +1,18 @@
+.container {
+    margin-top: 40px;
+    padding: 0px 5px;
+}
+
+.comment-title {
+    display: flex;
+}
+
+.comment-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.user-icon {
+    font-size: 20px !important;
+}

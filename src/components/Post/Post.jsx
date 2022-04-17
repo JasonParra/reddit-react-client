@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Row, Col } from 'antd';
+import { Card, Row, Col, Typography } from 'antd';
 import {
     ArrowUpOutlined,
     ArrowDownOutlined,
@@ -9,8 +9,8 @@ import {
     ShareAltOutlined,
     BookOutlined
 } from '@ant-design/icons';
-import { Typography } from 'antd';
 import MediaPlayer from '../MediaPlayer/MediaPlayer';
+import CommentSection from '../CommentSection/CommentSection';
 import { getStore, setStore, likesFormat } from '../../utils/utils';
 import { postVote } from '../../api/actions/post';
 
@@ -26,14 +26,18 @@ const Post = (props) => {
         src,
         is_video,
         num_comments,
-        author
+        author,
+        handlePostClick,
+        permalink,
+        enableCommentSection,
+        commentSectionProps
     } = props;
     const { Text } = Typography;
     const [option, setOption] = useState(null);
 
     useEffect(() => {
         setOption(getStore(name)?.likes);
-    }, [])
+    }, []);
 
     const handleUpVotes = () => {
         const number = option === 1 ? 0 : 1;
@@ -59,7 +63,7 @@ const Post = (props) => {
                     <Text className='score'>{likesFormat(score)}</Text>
                     <ArrowDownOutlined className={`votes ${option === -1 && 'down'}`} onClick={handleDownVotes} />
                 </Col>
-                <Col className='media-player-column'>
+                <Col className='media-player-column' onClick={() => handlePostClick(permalink)}>
                     <Row className='media-player-header'>
                         <Text className='subreddit-name' strong>{subreddit_name_prefixed}</Text>
                         <div className='dot'>.</div>
@@ -89,7 +93,8 @@ const Post = (props) => {
                     </Row>
                 </Col>
             </Row>
-        </Card>
+            {enableCommentSection && <CommentSection {...commentSectionProps} />}
+        </Card >
     );
 }
 
@@ -103,6 +108,10 @@ Post.propTypes = {
     is_video: PropTypes.bool.isRequired,
     num_comments: PropTypes.number.isRequired,
     author: PropTypes.string.isRequired,
+    permalink: PropTypes.string.isRequired,
+    handlePostClick: PropTypes.func,
+    enableCommentSection: PropTypes.bool,
+    commentSectionProps: PropTypes.object
 }
 
 Post.defaultProps = {
@@ -114,7 +123,11 @@ Post.defaultProps = {
     src: '',
     is_video: false,
     num_comments: 0,
-    author: ''
+    author: '',
+    permalink: '',
+    handlePostClick: () => { },
+    enableCommentSection: false,
+    commentSectionProps: {}
 }
 
 export default Post;

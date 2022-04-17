@@ -7,7 +7,11 @@ export const mapPostChildrenToPost = (data) => {
         is_video,
         name,
         num_comments,
-        author
+        author,
+        handlePostClick,
+        permalink,
+        enableCommentSection,
+        commentSectionProps
     } = data;
 
     if (is_video) {
@@ -21,7 +25,11 @@ export const mapPostChildrenToPost = (data) => {
             src: fallback_url,
             is_video,
             num_comments,
-            author
+            author,
+            handlePostClick,
+            permalink,
+            enableCommentSection,
+            commentSectionProps
         }
     } else {
         return {
@@ -33,7 +41,11 @@ export const mapPostChildrenToPost = (data) => {
             src: url,
             is_video,
             num_comments,
-            author
+            author,
+            handlePostClick,
+            permalink,
+            enableCommentSection,
+            commentSectionProps
         }
     }
 }

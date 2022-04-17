@@ -1,5 +1,5 @@
 .card-container {
-    max-height: 712px;
+    max-height: fit-content;
     width: 670px;
     margin-bottom: 20px !important;
     border-radius: 5px !important;
@@ -24,6 +24,7 @@
 .media-player-column {
     padding: 5px 0px 5px 0px;
     width: 100%;
+    cursor: pointer;
 }
 
 .media-player-header {
