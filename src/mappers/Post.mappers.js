@@ -1,22 +1,39 @@
 export const mapPostChildrenToPost = (data) => {
-    const { is_video } = data;
+    const {
+        subreddit_name_prefixed,
+        title,
+        score,
+        url,
+        is_video,
+        name,
+        num_comments,
+        author
+    } = data;
 
     if (is_video) {
         const { width, height, fallback_url } = data.media.reddit_video;
         return {
-            title: data.title,
-            score: data.score,
+            subreddit_name_prefixed,
+            title,
+            score,
+            name,
             mediaStyle: { width, height },
             src: fallback_url,
-            is_video
+            is_video,
+            num_comments,
+            author
         }
     } else {
         return {
-            title: data.title,
-            score: data.score,
+            subreddit_name_prefixed,
+            title,
+            score,
+            name,
             mediaStyle: {},
-            src: data.url,
-            is_video
+            src: url,
+            is_video,
+            num_comments,
+            author
         }
     }
 }

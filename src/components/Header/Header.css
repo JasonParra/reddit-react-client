@@ -10,6 +10,12 @@
     background-color: #FFFFFF;
     height: 50px !important;
     border-bottom: rgb(230, 230, 230) solid 1px;
+    margin-bottom: 10px;
+}
+
+.user {
+    margin-right: 20px;
+    font-size: 12px;
 }
 
 .title {

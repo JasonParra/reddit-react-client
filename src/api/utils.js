@@ -16,3 +16,5 @@ export const getToken = () => {
 export const setToken = (data) => {
     localStorage.setItem('token', JSON.stringify(data));
 }
+
+export const isLooged = () => getToken()?.access_token;
