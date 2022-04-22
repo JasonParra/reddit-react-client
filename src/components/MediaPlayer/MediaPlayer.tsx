@@ -1,15 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { MEDIA_TYPE } from '../../constants/MediaPlayer.contants';
 import { getTypeBySrc } from '../../utils/utils';
 import './MediaPlayer.css';
 
-const MediaPlayer = (props) => {
+export type MediaPlayerProps = {
+    style: { width: string, height: string },
+    src: string,
+    is_video: boolean
+}
+
+const MediaPlayer: FC<MediaPlayerProps> = (props) => {
     const { style, src, is_video } = props;
 
     const renderContent = () => {
         const { width, height } = style;
-        const type = getTypeBySrc(is_video, src);
+        const type: string = getTypeBySrc(is_video, src);
 
         switch (type) {
             case MEDIA_TYPE.VIDEO: return (
@@ -24,25 +29,11 @@ const MediaPlayer = (props) => {
             case MEDIA_TYPE.LINK: return (
                 <a>{src}</a>
             );
-            default: break;
+            default: return <></>
         }
     }
 
     return renderContent();
-}
-
-MediaPlayer.propTypes = {
-    style: PropTypes.object.isRequired,
-    src: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    is_video: PropTypes.bool.isRequired
-}
-
-MediaPlayer.defaultProps = {
-    style: {},
-    src: '',
-    type: '',
-    is_video: false
 }
 
 export default MediaPlayer;

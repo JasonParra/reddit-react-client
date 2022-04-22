@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, FC, Dispatch, SetStateAction } from 'react';
 import { Input, Typography, Col, Button, Tree } from 'antd';
 import { getStore, getCreatedMessage } from '../../utils/utils';
 import { postComment } from '../../api/actions/comment';
-import PropTypes from 'prop-types';
 import './CommentSection.css';
+import PostResponse from '../../types/PostResponse';
+import CommentResponse from '../../types/CommentsReponse';
+import CommentsTree from '../../types/CommentsTree';
 
-const CommentSection = (props) => {
+export type CommentSectionProps = {
+    treeData: CommentsTree[],
+    name: string,
+    data: { post: PostResponse, comments: CommentResponse[] },
+    setData: Dispatch<SetStateAction<{ post: PostResponse; comments: CommentResponse[]; } | undefined>>
+}
+
+const CommentSection: FC<CommentSectionProps> = (props) => {
     const { treeData, name, data, setData } = props;
     const { TextArea } = Input;
     const { Text } = Typography;
@@ -18,7 +27,8 @@ const CommentSection = (props) => {
 
         postComment(name, comment).then((_data) => {
             const children = getCreatedMessage(_data.data);
-            setData({ ...data, comments: [...data.comments, children] });
+            if (children)
+                setData({ ...data, comments: [...data.comments, children] });
             setComment('');
         })
     }
@@ -33,20 +43,6 @@ const CommentSection = (props) => {
             <Tree defaultExpandAll switcherIcon={<div></div>} showLine={{ showLeafIcon: false }} treeData={treeData} />
         </Col>
     )
-}
-
-CommentSection.propTypes = {
-    treeData: PropTypes.array.isRequired,
-    name: PropTypes.string.isRequired,
-    data: PropTypes.object.isRequired,
-    setData: PropTypes.func.isRequired
-}
-
-CommentSection.defaultProps = {
-    treeData: [],
-    name: '',
-    data: {},
-    setData: () => { }
 }
 
 export default CommentSection

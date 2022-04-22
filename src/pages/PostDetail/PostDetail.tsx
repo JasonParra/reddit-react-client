@@ -7,10 +7,12 @@ import { getAllCommentsByPost } from '../../api/actions/post';
 import Post from '../../components/Post/Post';
 import Header from '../../components/Header/Header'
 import './PostDetail.css';
+import PostResponse from '../../types/PostResponse';
+import CommentResponse from '../../types/CommentsReponse';
 
 const PostDetail = () => {
     const { subreddit, id, title } = useParams();
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<{ post: PostResponse, comments: CommentResponse[] }>();
 
     useEffect(() => {
         getAllCommentsByPost(subreddit, id, title).then(({ data }) =>
