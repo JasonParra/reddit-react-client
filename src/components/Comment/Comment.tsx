@@ -11,7 +11,7 @@ import { postVote } from '../../api/actions/post';
 import { postComment } from '../../api/actions/comment';
 import './Comment.css';
 import PostResponse from '../../types/PostResponse';
-import CommentResponse from '../../types/CommentsReponse';
+import CommentResponse from '../../types/CommentsResponse';
 
 export type CommentProps = {
     author: string,
@@ -19,8 +19,8 @@ export type CommentProps = {
     ups: number,
     created: number,
     name: string,
-    data: { post: PostResponse, comments: CommentResponse[] },
-    setData: Dispatch<SetStateAction<{ post: PostResponse; comments: CommentResponse[]; } | undefined>>
+    data?: { post: PostResponse, comments: CommentResponse[] },
+    setData?: Dispatch<SetStateAction<{ post: PostResponse; comments: CommentResponse[]; } | undefined>>
 }
 
 const Comment: FC<CommentProps> = (props) => {
@@ -46,7 +46,7 @@ const Comment: FC<CommentProps> = (props) => {
 
         postComment(name, comment).then((_data) => {
             const children = getCreatedReplay(_data.data);
-            if (children)
+            if (children && setData && data)
                 setData({ ...data, comments: addReplyToTree(data.comments, children) });
             setStore(name, { likes: 1 });
             handleCancel();

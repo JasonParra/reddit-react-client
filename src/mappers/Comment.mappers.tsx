@@ -2,7 +2,7 @@ import React from 'react';
 import { Dispatch, SetStateAction } from 'react';
 import Comment from '../components/Comment/Comment';
 import { CommentSectionProps } from '../components/CommentSection/CommentSection';
-import CommentResponse from '../types/CommentsReponse';
+import CommentResponse from '../types/CommentsResponse';
 import CommentsTree from '../types/CommentsTree';
 import PostResponse from '../types/PostResponse';
 
