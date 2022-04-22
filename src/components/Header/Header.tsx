@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Typography, Row, Col } from 'antd'
 import {
     LoginOutlined,

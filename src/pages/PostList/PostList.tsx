@@ -9,12 +9,14 @@ import { setToken } from '../../api/utils';
 import { setStore } from '../../utils/utils';
 import Post from '../../components/Post/Post';
 import Header from '../../components/Header/Header'
+
 import './PostList.css';
+import PostResponse from '../../types/PostResponse';
 
 const PostList = () => {
     const { subreddit = "all" } = useParams();
     const [searchParams] = useSearchParams();
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<PostResponse[]>([]);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -22,12 +24,12 @@ const PostList = () => {
     }, []);
 
     const requestUser = () => {
-        getUser().then(({ data }) => {
+        getUser().then(({ data }: { data: object }) => {
             setStore('user', data);
         });
     }
 
-    const requestToken = async (code) => {
+    const requestToken = async (code: string) => {
         const { data } = await getAccessToken(code);
 
         if (data.error)
@@ -48,11 +50,11 @@ const PostList = () => {
         }
     }, [])
 
-    const handlePostClick = (permalink) => {
+    const handlePostClick = (permalink: string) => {
         navigate(permalink);
     }
 
-    const mapPostResponseToPost = ({ data }, key) => {
+    const mapPostResponseToPost = ({ data }: { data: PostResponse }, key: React.Key | null | undefined) => {
         return <Post key={key} {...mapPostChildrenToPost({ ...data, handlePostClick })} />;
     }
 

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, FC } from 'react';
 import { Card, Row, Col, Typography } from 'antd';
 import {
     ArrowUpOutlined,
@@ -13,10 +12,29 @@ import MediaPlayer from '../MediaPlayer/MediaPlayer';
 import CommentSection from '../CommentSection/CommentSection';
 import { getStore, setStore, likesFormat } from '../../utils/utils';
 import { postVote } from '../../api/actions/post';
-
+import { CommentSectionProps } from '../CommentSection/CommentSection';
 import './Post.css';
 
-const Post = (props) => {
+export type PostProps = {
+    subreddit_name_prefixed: string,
+    title: string,
+    score: number,
+    url: string,
+    name: string,
+    mediaStyle: { width: string, height: string },
+    src: string,
+    is_video: boolean,
+    num_comments: number,
+    author: string,
+    handlePostClick: handlePostClick,
+    permalink: string,
+    enableCommentSection: boolean,
+    commentSectionProps: CommentSectionProps
+}
+
+type handlePostClick = (permalink: string) => void;
+
+const Post: FC<PostProps> = (props) => {
     const {
         subreddit_name_prefixed,
         title,
@@ -33,7 +51,7 @@ const Post = (props) => {
         commentSectionProps
     } = props;
     const { Text } = Typography;
-    const [option, setOption] = useState(null);
+    const [option, setOption] = useState<number>();
 
     useEffect(() => {
         setOption(getStore(name)?.likes);
@@ -76,7 +94,7 @@ const Post = (props) => {
                     <Row className='bottom-button-container'>
                         <Row className='bottom-button'>
                             <CommentOutlined className='bottom-button-icon' />
-                            <Text>{num_comments} Comments</Text>
+                            <Text>{`${num_comments} Comments`}</Text>
                         </Row>
                         <Row className='bottom-button'>
                             <GiftOutlined className='bottom-button-icon' />
@@ -96,38 +114,6 @@ const Post = (props) => {
             {enableCommentSection && <CommentSection {...commentSectionProps} />}
         </Card >
     );
-}
-
-Post.propTypes = {
-    subreddit_name_prefixed: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    score: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    mediaStyle: PropTypes.object,
-    src: PropTypes.string.isRequired,
-    is_video: PropTypes.bool.isRequired,
-    num_comments: PropTypes.number.isRequired,
-    author: PropTypes.string.isRequired,
-    permalink: PropTypes.string.isRequired,
-    handlePostClick: PropTypes.func,
-    enableCommentSection: PropTypes.bool,
-    commentSectionProps: PropTypes.object
-}
-
-Post.defaultProps = {
-    subreddit_name_prefixed: '',
-    title: '',
-    score: 0,
-    name: '',
-    mediaStyle: {},
-    src: '',
-    is_video: false,
-    num_comments: 0,
-    author: '',
-    permalink: '',
-    handlePostClick: () => { },
-    enableCommentSection: false,
-    commentSectionProps: {}
 }
 
 export default Post;

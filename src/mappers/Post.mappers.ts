@@ -1,4 +1,7 @@
-export const mapPostChildrenToPost = (data) => {
+import { PostProps } from '../components/Post/Post';
+import PostResponse from '../types/PostResponse'
+
+export const mapPostChildrenToPost = (data: PostResponse): PostProps => {
     const {
         subreddit_name_prefixed,
         title,
@@ -30,7 +33,7 @@ export const mapPostChildrenToPost = (data) => {
             permalink,
             enableCommentSection,
             commentSectionProps
-        }
+        } as PostProps
     } else {
         return {
             subreddit_name_prefixed,
@@ -46,6 +49,6 @@ export const mapPostChildrenToPost = (data) => {
             permalink,
             enableCommentSection,
             commentSectionProps
-        }
+        } as PostProps
     }
 }

@@ -1,13 +1,15 @@
 import { MEDIA_TYPE } from '../constants/MediaPlayer.contants';
+import CommentResponse from '../types/CommentsReponse';
+
 const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_REDIRECT, REACT_APP_CLIENT_STATE } = process.env;
 
-export const likesFormat = (number) => {
+export const likesFormat = (number: number = 0) => {
     if (number < 10000)
         return number;
     else return (number / 1000).toFixed(2) + 'K';
 }
 
-export const getTypeBySrc = (is_video = false, src = '') => {
+export const getTypeBySrc = (is_video: boolean = false, src: string = '') => {
     if (!is_video && src.includes('.gif'))
         return MEDIA_TYPE.IMAGE;
     else if (!is_video && (!src.includes('.jpg') && !src.includes('.png')))
@@ -26,15 +28,15 @@ export const buildRedditAouthLink = () =>
 export const buildRedditRegisterLink = () =>
     `https://www.reddit.com/register/?dest=${REACT_APP_CLIENT_REDIRECT}`;
 
-export const getStore = (key) => {
-    return JSON.parse(localStorage.getItem('store'))?.[key];
+export const getStore = (key: string) => {
+    return JSON.parse(localStorage.getItem('store') || '')?.[key];
 }
 
-export const setStore = (key, value) => {
-    return localStorage.setItem('store', JSON.stringify({ ...JSON.parse(localStorage.getItem('store')), [key]: value }))
+export const setStore = (key: string, value: any) => {
+    return localStorage.setItem('store', JSON.stringify({ ...JSON.parse(localStorage.getItem('store') || ''), [key]: value }))
 }
 
-export const getCreatedReplay = (data) => {
+export const getCreatedReplay = (data: { jquery: [any[]] }) => {
     const { jquery } = data;
     let result = null;
 
@@ -49,7 +51,7 @@ export const getCreatedReplay = (data) => {
 
     return result;
 }
-export const getCreatedMessage = (data) => {
+export const getCreatedMessage = (data: { jquery: [any[]] }) => {
     const { jquery } = data;
     let result = null;
 
@@ -66,8 +68,9 @@ export const getCreatedMessage = (data) => {
 }
 
 
-export const addReplyToTree = (tree, reply) => {
+export const addReplyToTree = (tree: CommentResponse[], reply: { data: { parent_id: string; } }): CommentResponse[] => {
     return tree.map((item) => {
+        const repliesChildren = item.data.replies?.data?.children;
         if (item.data.name === reply.data.parent_id)
             return {
                 ...item,
@@ -76,8 +79,8 @@ export const addReplyToTree = (tree, reply) => {
                     replies: { ...item.data.replies, data: { ...item.data.replies?.data, children: [...item.data.replies?.data?.children, reply] } }
                 }
             }
-        else if (item?.data?.replies?.length)
-            return addReplyToTree(item.data.replies?.data?.children || [], reply);
+        else if (repliesChildren.length)
+            return addReplyToTree(repliesChildren || [], reply);
         else return item;
-    })
+    }) as CommentResponse[];
 }

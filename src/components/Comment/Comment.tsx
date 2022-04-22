@@ -1,23 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, SetStateAction, Dispatch, FC } from 'react'
 import { Col, Row, Typography, Button, Input } from 'antd';
-import PropTypes from 'prop-types'
 import {
     ArrowUpOutlined,
     ArrowDownOutlined,
     CommentOutlined,
 } from '@ant-design/icons';
-import { getStore, setStore, likesFormat, getCreatedReplay } from '../../utils/utils';
+import { getStore, setStore, getCreatedReplay, likesFormat } from '../../utils/utils';
 import { addReplyToTree } from '../../utils/utils';
 import { postVote } from '../../api/actions/post';
 import { postComment } from '../../api/actions/comment';
 import './Comment.css';
+import PostResponse from '../../types/PostResponse';
+import CommentResponse from '../../types/CommentsReponse';
 
-const Comment = props => {
+export type CommentProps = {
+    author: string,
+    body: string,
+    ups: number,
+    created: number,
+    name: string,
+    data: { post: PostResponse, comments: CommentResponse[] },
+    setData: Dispatch<SetStateAction<{ post: PostResponse; comments: CommentResponse[]; } | undefined>>
+}
+
+const Comment: FC<CommentProps> = (props) => {
     const { author, body, ups, created, name, data, setData } = props;
     const { Text } = Typography;
     const { TextArea } = Input;
     const [comment, setComment] = useState('');
-    const [option, setOption] = useState(null);
+    const [option, setOption] = useState<number>();
     const [enableReply, setEnableReply] = useState(false);
 
     useEffect(() => {
@@ -35,7 +46,8 @@ const Comment = props => {
 
         postComment(name, comment).then((_data) => {
             const children = getCreatedReplay(_data.data);
-            setData({ ...data, comments: addReplyToTree(data.comments, children) });
+            if (children)
+                setData({ ...data, comments: addReplyToTree(data.comments, children) });
             setStore(name, { likes: 1 });
             handleCancel();
         });
@@ -85,26 +97,6 @@ const Comment = props => {
             </div>}
         </Col >
     )
-}
-
-Comment.propTypes = {
-    author: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    ups: PropTypes.number.isRequired,
-    created: PropTypes.number.isRequired,
-    data: PropTypes.object.isRequired,
-    setData: PropTypes.func.isRequired,
-}
-
-Comment.defaultProps = {
-    author: '',
-    body: '',
-    name: '',
-    ups: 0,
-    created: 0,
-    data: {},
-    setData: () => { }
 }
 
 export default Comment
