@@ -1,5 +1,5 @@
 # Reddit client using React.js
-> This is a simple client made on react.js using the github official API.
+> This is a simple client made on react.js using the Reddit official API.
 
 
 ## Technologies Used
