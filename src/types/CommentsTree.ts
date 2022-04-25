@@ -1,7 +1,7 @@
 type CommentsTree = {
     title: JSX.Element;
     key: string;
-    children: any;
+    children: CommentsTree[];
 }
 
 export default CommentsTree;

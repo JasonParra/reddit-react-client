@@ -1,5 +1,5 @@
 import { MEDIA_TYPE } from '../constants/MediaPlayer.contants';
-import CommentResponse from '../types/CommentsReponse';
+import CommentResponse from '../types/CommentsResponse';
 
 const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_REDIRECT, REACT_APP_CLIENT_STATE } = process.env;
 
@@ -18,7 +18,6 @@ export const getTypeBySrc = (is_video: boolean = false, src: string = '') => {
         return MEDIA_TYPE.IMAGE;
     else
         return MEDIA_TYPE.VIDEO;
-
 }
 
 export const buildRedditAouthLink = () =>
@@ -29,7 +28,7 @@ export const buildRedditRegisterLink = () =>
     `https://www.reddit.com/register/?dest=${REACT_APP_CLIENT_REDIRECT}`;
 
 export const getStore = (key: string) => {
-    return JSON.parse(localStorage.getItem('store') || '')?.[key];
+    return JSON.parse(localStorage.getItem('store') || '{}')?.[key];
 }
 
 export const setStore = (key: string, value: any) => {
@@ -51,6 +50,7 @@ export const getCreatedReplay = (data: { jquery: [any[]] }) => {
 
     return result;
 }
+
 export const getCreatedMessage = (data: { jquery: [any[]] }) => {
     const { jquery } = data;
     let result = null;
@@ -66,7 +66,6 @@ export const getCreatedMessage = (data: { jquery: [any[]] }) => {
 
     return result;
 }
-
 
 export const addReplyToTree = (tree: CommentResponse[], reply: { data: { parent_id: string; } }): CommentResponse[] => {
     return tree.map((item) => {

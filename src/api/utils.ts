@@ -12,7 +12,7 @@ export const buildHeaders = (isProtected = false) => {
 }
 
 export const getToken = () => {
-    return JSON.parse(localStorage.getItem('token') || '')
+    return JSON.parse(localStorage.getItem('token') || '{}')
 }
 
 export const setToken = (data: Json<string>) => {

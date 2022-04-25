@@ -8,7 +8,7 @@ import Post from '../../components/Post/Post';
 import Header from '../../components/Header/Header'
 import './PostDetail.css';
 import PostResponse from '../../types/PostResponse';
-import CommentResponse from '../../types/CommentsReponse';
+import CommentResponse from '../../types/CommentsResponse';
 
 const PostDetail = () => {
     const { subreddit, id, title } = useParams();

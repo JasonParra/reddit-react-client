@@ -4,7 +4,7 @@ import { getStore, getCreatedMessage } from '../../utils/utils';
 import { postComment } from '../../api/actions/comment';
 import './CommentSection.css';
 import PostResponse from '../../types/PostResponse';
-import CommentResponse from '../../types/CommentsReponse';
+import CommentResponse from '../../types/CommentsResponse';
 import CommentsTree from '../../types/CommentsTree';
 
 export type CommentSectionProps = {
