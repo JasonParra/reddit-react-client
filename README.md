@@ -5,6 +5,7 @@
 ## Technologies Used
 - React.js
 - Typescript
+- React Router
 - Ant Design
 - Axios
 - Reddit API
