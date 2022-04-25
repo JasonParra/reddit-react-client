@@ -1,5 +1,5 @@
 import * as Utils from './utils';
-import { MEDIA_TYPE } from '../constants/MediaPlayer.contants';
+import { MEDIA_TYPE } from '../constants/MediaPlayer.constant';
 import { mockLocalStorage, unMockLocalStorage } from '../test/fixture/Storage.fixture';
 import { buildCreateReplyResponse, buildReply } from '../test/fixture/ReplyResponse.fixture';
 import { buildComment, buildCreateCommentResponse } from '../test/fixture/CommentResponse.fixture';
@@ -37,7 +37,7 @@ describe('Testing util file', () => {
   })
 
   it('Should return a oauth reddit link', () => {
-    const result = Utils.buildRedditAouthLink();
+    const result = Utils.buildRedditOauthLink();
 
     expect(result).toBe('https://www.reddit.com/api/v1/authorize?client_id=example_client_id&response_type=code&state=example_client_state&redirect_uri=example_client_redirect&duration=temporary&scope=vote submit identity');
 
@@ -70,12 +70,12 @@ describe('Testing util file', () => {
   })
 
   it('Should return created reply from response', () => {
-    const spyOnGetCreatedReply = jest.spyOn(Utils, "getCreatedReplay");
+    const spyOnGetCreatedReply = jest.spyOn(Utils, "getCreatedReply");
     const response: any = buildCreateReplyResponse();
-    const createdReply = Utils.getCreatedReplay(response);
+    const createdReply = Utils.getCreatedReply(response);
 
     expect(spyOnGetCreatedReply).toBeCalledWith(response);
-    expect(Utils.getCreatedReplay).toHaveBeenCalled();
+    expect(Utils.getCreatedReply).toHaveBeenCalled();
     expect(createdReply).toBe(buildReply());
   })
 

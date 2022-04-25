@@ -1,4 +1,4 @@
-import { MEDIA_TYPE } from '../constants/MediaPlayer.contants';
+import { MEDIA_TYPE } from '../constants/MediaPlayer.constant';
 import CommentResponse from '../types/CommentsResponse';
 
 const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_REDIRECT, REACT_APP_CLIENT_STATE } = process.env;
@@ -20,7 +20,7 @@ export const getTypeBySrc = (is_video: boolean = false, src: string = '') => {
         return MEDIA_TYPE.VIDEO;
 }
 
-export const buildRedditAouthLink = () =>
+export const buildRedditOauthLink = () =>
     `https://www.reddit.com/api/v1/authorize?client_id=${REACT_APP_CLIENT_ID}&response_type=code&state=${REACT_APP_CLIENT_STATE}&redirect_uri=${REACT_APP_CLIENT_REDIRECT}&duration=temporary&scope=vote submit identity`;
 
 
@@ -32,10 +32,10 @@ export const getStore = (key: string) => {
 }
 
 export const setStore = (key: string, value: any) => {
-    return localStorage.setItem('store', JSON.stringify({ ...JSON.parse(localStorage.getItem('store') || ''), [key]: value }))
+    return localStorage.setItem('store', JSON.stringify({ ...JSON.parse(localStorage.getItem('store') || '{}'), [key]: value }))
 }
 
-export const getCreatedReplay = (data: { jquery: [any[]] }) => {
+export const getCreatedReply = (data: { jquery: [any[]] }) => {
     const { jquery } = data;
     let result = null;
 

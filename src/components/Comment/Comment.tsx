@@ -5,7 +5,7 @@ import {
     ArrowDownOutlined,
     CommentOutlined,
 } from '@ant-design/icons';
-import { getStore, setStore, getCreatedReplay, likesFormat } from '../../utils/utils';
+import { getStore, setStore, getCreatedReply, likesFormat } from '../../utils/utils';
 import { addReplyToTree } from '../../utils/utils';
 import { postVote } from '../../api/actions/post';
 import { postComment } from '../../api/actions/comment';
@@ -45,7 +45,7 @@ const Comment: FC<CommentProps> = (props) => {
             return;
 
         postComment(name, comment).then((_data) => {
-            const children = getCreatedReplay(_data.data);
+            const children = getCreatedReply(_data.data);
             if (children && setData && data)
                 setData({ ...data, comments: addReplyToTree(data.comments, children) });
             setStore(name, { likes: 1 });

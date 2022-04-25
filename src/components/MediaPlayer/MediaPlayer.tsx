@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { MEDIA_TYPE } from '../../constants/MediaPlayer.contants';
+import { MEDIA_TYPE } from '../../constants/MediaPlayer.constant';
 import { getTypeBySrc } from '../../utils/utils';
 import './MediaPlayer.css';
 

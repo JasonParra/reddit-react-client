@@ -8,7 +8,7 @@ interface PostResponse extends PostProps {
             fallback_url: string
         }
     },
-    data?: PostResponse
+    data: PostResponse
 }
 
 export default PostResponse;

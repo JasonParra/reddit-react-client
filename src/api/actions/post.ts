@@ -11,7 +11,6 @@ export const getAllCommentsByPost = (subreddit: string = "", id: string = "", ti
     return axios.get(`${REDDIT_PUBLIC_BASE_URL}/r/${subreddit}/comments/${id}/${title}.json`);
 }
 
-
 export const postVote = (dir: number, id: string = "") => {
     const params = new URLSearchParams();
     params.append('dir', dir.toString());
