@@ -4,16 +4,18 @@
 
 ## Technologies Used
 - React.js
+- Typescript
 - Ant Design
 - Axios
 - Reddit API
+- Jest
 
 
 ## Features
 - Login / Logout
 - Register
 - Subreddit page /r/all implemented and custom subreddit as well.
-- Detail page for a espesific post.
+- Detail page for a specific post.
 - Likes
 - Comments
 - Reply
